@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BootLearn-MBA | Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 <style>
 :root {
   --primary: #1a3c72;
@@ -124,7 +121,7 @@ button::after {
   width: 0; height: 0;
   background: rgba(255,255,255,0.4);
   border-radius: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
   transition: width 0.4s ease, height 0.4s ease;
 }
@@ -143,15 +140,12 @@ button:active::after {
   text-decoration: none;
 }
 .footer-text a:hover { text-decoration: underline; }
-
-/* Ensure active class toggles for error messages */
 </style>
 </head>
 <body>
 <div class="bg-shape bg1"></div>
 <div class="bg-shape bg2"></div>
-
-<div class="form-wrapper">
+<div class="form-wrapper" role="main" aria-label="Login form for BootLearn MBA">
   <h1>Login to BootLearn-MBA</h1>
   <form id="login-form" novalidate>
     <div>
@@ -164,13 +158,14 @@ button:active::after {
       <input type="password" id="password" name="password" minlength="6" required autocomplete="current-password" />
       <div class="error-message" id="password-error" aria-live="assertive"></div>
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" aria-label="Login to BootLearn-MBA">Login</button>
   </form>
   <p class="footer-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
 </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-<script>
-  // Your Firebase config and init
   const firebaseConfig = {
     apiKey: "AIzaSyDFNKnIvOv94FLZ2rVz1sqML-2yedhf0xc",
     authDomain: "bootlearn-mba.firebaseapp.com",
@@ -180,10 +175,9 @@ button:active::after {
     appId: "1:903266342829:web:44fe7e1df618b5a5bb3324",
     measurementId: "G-H7XQ38YD61"
   };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-  // Elements
   const form = document.getElementById('login-form');
   const emailInput = form.email;
   const passwordInput = form.password;
@@ -191,7 +185,6 @@ button:active::after {
   const passwordError = document.getElementById('password-error');
   const btn = form.querySelector('button[type="submit"]');
 
-  // Utility functions
   function showError(el, msg) {
     el.textContent = msg;
     el.classList.add('active');
@@ -241,10 +234,11 @@ button:active::after {
     btn.textContent = 'Logging in...';
 
     try {
-      await auth.signInWithEmailAndPassword(emailVal, passVal);
+      await signInWithEmailAndPassword(auth, emailVal, passVal);
       alert('Login successful!');
       form.reset();
-      // Redirect the user or update UI here if needed
+      // Redirect to your app/dashboard page if needed:
+      // window.location.href = 'dashboard.html';
     } catch (error) {
       showError(passwordError, error.message);
     }
@@ -254,4 +248,3 @@ button:active::after {
 </script>
 </body>
 </html>
-
