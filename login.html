@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BootLearn-MBA | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<style>
+:root {
+  --primary: #1a3c72;
+  --accent: #f77e21;
+  --bg: #f5f8fc;
+  --text: #222;
+  --muted: #6b7280;
+  --radius: 12px;
+  --shadow: 0 8px 25px rgba(26,60,114,0.15);
+  --transition: 0.3s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+/* Background blobs */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  animation: float 12s infinite ease-in-out alternate;
+  z-index: 0;
+}
+.bg1 { width: 300px; height: 300px; background: var(--accent); top: -80px; left: -80px; }
+.bg2 { width: 260px; height: 260px; background: var(--primary); bottom: -80px; right: -80px; }
+@keyframes float { to { transform: translate(20px, -40px);} }
+/* Form container */
+.form-wrapper {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 48px 36px;
+  width: 100%;
+  max-width: 420px;
+  z-index: 1;
+  animation: fadeSlideIn 0.6s ease forwards;
+}
+@keyframes fadeSlideIn { from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);} }
+.form-wrapper h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 32px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: inline-block;
+}
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  border: 2px solid #ccc;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: inherit;
+}
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  outline: none;
+}
+.error-message {
+  color: #d93025;
+  font-size: 0.8rem;
+  opacity: 0;
+  max-height: 0;
+  transition: 0.3s ease;
+}
+.error-message.active {
+  opacity: 1;
+  max-height: 40px;
+}
+button[type="submit"] {
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 16px 0;
+  font-size: 1.1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(247,126,33,0.5);
+  transition: background var(--transition), transform var(--transition);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+button:hover { background: #d96a0e; transform: translateY(-2px);}
+button::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+button:active::after {
+  width: 200%; height: 200%; transition: 0s;
+}
+.footer-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--muted);
+}
+.footer-text a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-text a:hover { text-decoration: underline; }
+
+/* Ensure active class toggles for error messages */
+</style>
+</head>
+<body>
+<div class="bg-shape bg1"></div>
+<div class="bg-shape bg2"></div>
+
+<div class="form-wrapper">
+  <h1>Login to BootLearn-MBA</h1>
+  <form id="login-form" novalidate>
+    <div>
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required autocomplete="email" />
+      <div class="error-message" id="email-error" aria-live="assertive"></div>
+    </div>
+    <div>
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" minlength="6" required autocomplete="current-password" />
+      <div class="error-message" id="password-error" aria-live="assertive"></div>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  <p class="footer-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
+</div>
+
+<script>
+  // Your Firebase config and init
+  const firebaseConfig = {
+    apiKey: "AIzaSyDFNKnIvOv94FLZ2rVz1sqML-2yedhf0xc",
+    authDomain: "bootlearn-mba.firebaseapp.com",
+    projectId: "bootlearn-mba",
+    storageBucket: "bootlearn-mba.firebasestorage.app",
+    messagingSenderId: "903266342829",
+    appId: "1:903266342829:web:44fe7e1df618b5a5bb3324",
+    measurementId: "G-H7XQ38YD61"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Elements
+  const form = document.getElementById('login-form');
+  const emailInput = form.email;
+  const passwordInput = form.password;
+  const emailError = document.getElementById('email-error');
+  const passwordError = document.getElementById('password-error');
+  const btn = form.querySelector('button[type="submit"]');
+
+  // Utility functions
+  function showError(el, msg) {
+    el.textContent = msg;
+    el.classList.add('active');
+  }
+  function clearError(el) {
+    el.textContent = '';
+    el.classList.remove('active');
+  }
+  function setInputValid(input, valid) {
+    if (valid) {
+      input.style.borderColor = "var(--accent)";
+      input.style.boxShadow = "0 0 8px var(--accent)";
+    } else {
+      input.style.borderColor = "#d93025";
+      input.style.boxShadow = "0 0 8px #d93025";
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError(emailError);
+    clearError(passwordError);
+    setInputValid(emailInput, true);
+    setInputValid(passwordInput, true);
+
+    let valid = true;
+    const emailVal = emailInput.value.trim();
+    const passVal = passwordInput.value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailVal || !emailPattern.test(emailVal)) {
+      showError(emailError, 'Please enter a valid email address.');
+      setInputValid(emailInput, false);
+      emailInput.focus();
+      valid = false;
+    }
+    if (!passVal || passVal.length < 6) {
+      showError(passwordError, 'Password must be at least 6 characters.');
+      setInputValid(passwordInput, false);
+      if (valid) passwordInput.focus();
+      valid = false;
+    }
+    if (!valid) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Logging in...';
+
+    try {
+      await auth.signInWithEmailAndPassword(emailVal, passVal);
+      alert('Login successful!');
+      form.reset();
+      // Redirect the user or update UI here if needed
+    } catch (error) {
+      showError(passwordError, error.message);
+    }
+    btn.disabled = false;
+    btn.textContent = 'Login';
+  });
+</script>
+</body>
+</html>
