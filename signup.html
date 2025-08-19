@@ -298,7 +298,6 @@ button:hover {
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script>
-  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyDFNKnIvOv94FLZ2rVz1sqML-2yedhf0xc",
     authDomain: "bootlearn-mba.firebaseapp.com",
@@ -308,12 +307,10 @@ button:hover {
     appId: "1:903266342829:web:44fe7e1df618b5a5bb3324",
     measurementId: "G-H7XQ38YD61"
   };
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  // Multi-step form logic
   let currentStep = 0;
   const steps = document.querySelectorAll(".step");
   const progress = document.getElementById("progress");
