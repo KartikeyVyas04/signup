@@ -312,6 +312,7 @@ button:hover {
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
+
   // Multi-step form logic
   let currentStep = 0;
   const steps = document.querySelectorAll(".step");
@@ -319,12 +320,14 @@ button:hover {
   const nextBtn = document.getElementById("nextBtn");
   const prevBtn = document.getElementById("prevBtn");
   const form = document.getElementById('signupForm');
+
   function showStep(n) {
     steps.forEach((step, idx) => step.classList.toggle("active", idx === n));
     prevBtn.style.display = n === 0 ? "none" : "inline-block";
     nextBtn.textContent = n === steps.length - 1 ? "Sign Up" : "Next";
     progress.style.width = ((n + 1) / steps.length) * 100 + "%";
   }
+
   function validateStep(n) {
     let valid = true;
     const inputs = steps[n].querySelectorAll("input, select");
@@ -339,13 +342,13 @@ button:hover {
     });
     return valid;
   }
+
   nextBtn.addEventListener("click", async () => {
     if (!validateStep(currentStep)) return;
     if (currentStep < steps.length - 1) {
       currentStep++;
       showStep(currentStep);
     } else {
-      // On last step: create user and store profile
       nextBtn.disabled = true;
       nextBtn.textContent = "Signing up...";
       try {
@@ -361,11 +364,9 @@ button:hover {
         const gradPercent = form.gradPercent.value;
         const workEx = form.workEx.value;
 
-        // Register user with email/password
         const userCred = await auth.createUserWithEmailAndPassword(email, password);
         const uid = userCred.user.uid;
 
-        // Store profile fields
         await db.collection('users').doc(uid).set({
           name, email, phone, category, gender, tenth, twelfth,
           graduation, gradPercent, workEx,
@@ -384,12 +385,13 @@ button:hover {
       nextBtn.disabled = false;
     }
   });
+
   prevBtn.addEventListener("click", () => {
     currentStep--;
     showStep(currentStep);
   });
+
   showStep(currentStep);
 </script>
 </body>
 </html>
-
