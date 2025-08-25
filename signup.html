@@ -3,164 +3,116 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BootLearn-MBA | Login</title>
+<title>BootLearn-MBA | Sign Up</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 <style>
-:root {
-  --primary: #1a3c72;
-  --accent: #f77e21;
-  --bg: #f5f8fc;
-  --text: #222;
-  --muted: #6b7280;
-  --radius: 12px;
-  --shadow: 0 8px 25px rgba(26,60,114,0.15);
-  --transition: 0.3s ease;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-  position: relative;
-}
-.bg-shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.2;
-  animation: float 12s infinite ease-in-out alternate;
-  z-index: 0;
-}
-.bg1 { width: 300px; height: 300px; background: var(--accent); top: -80px; left: -80px; }
-.bg2 { width: 260px; height: 260px; background: var(--primary); bottom: -80px; right: -80px; }
-@keyframes float { to { transform: translate(20px, -40px);} }
-.form-wrapper {
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 48px 36px;
-  width: 100%;
-  max-width: 420px;
-  z-index: 1;
-  animation: fadeSlideIn 0.6s ease forwards;
-}
-@keyframes fadeSlideIn { from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);} }
-.form-wrapper h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary);
-  text-align: center;
-  margin-bottom: 32px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--primary);
-  margin-bottom: 6px;
-  display: inline-block;
-}
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 1rem;
-  border-radius: var(--radius);
-  border: 2px solid #ccc;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  font-family: inherit;
-}
-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  outline: none;
-}
-.error-message {
-  color: #d93025;
-  font-size: 0.8rem;
-  opacity: 0;
-  max-height: 0;
-  transition: 0.3s ease;
-}
-.error-message.active {
-  opacity: 1;
-  max-height: 40px;
-}
-button[type="submit"] {
-  background: var(--accent);
-  color: white;
-  font-weight: 700;
-  border: none;
-  padding: 16px 0;
-  font-size: 1.1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(247,126,33,0.5);
-  transition: background var(--transition), transform var(--transition);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-button:hover { background: #d96a0e; transform: translateY(-2px);}
-button::after {
-  content: '';
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 0; height: 0;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  transition: width 0.4s ease, height 0.4s ease;
-}
-button:active::after {
-  width: 200%; height: 200%; transition: 0s;
-}
-.footer-text {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  text-align: center;
-  color: var(--muted);
-}
-.footer-text a {
-  color: var(--accent);
-  font-weight: 600;
-  text-decoration: none;
-}
-.footer-text a:hover { text-decoration: underline; }
+/* Same CSS styling as shared before - omitted here for brevity. Reuse your existing signup CSS */
+:root{--primary:#1a3c72;--accent:#f77e21;--bg:#f5f8fc;--text:#222;--muted:#6b7280;--radius:12px}*{box-sizing:border-box;padding:0;margin:0}body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.bg-shape{position:absolute;border-radius:50%;filter:blur(80px);opacity:.2;animation:float 10s infinite ease-in-out alternate}.bg1{width:300px;height:300px;background:var(--accent);top:-50px;left:-60px}.bg2{width:250px;height:250px;background:var(--primary);bottom:-40px;right:-50px}@keyframes float{to{transform:translateY(-40px) translateX(20px)}}.container{background:#fff;border-radius:var(--radius);box-shadow:0 8px 25px rgba(0,0,0,.08);overflow:hidden;display:flex;max-width:1100px;width:100%;z-index:1}.side{background:linear-gradient(135deg,var(--primary),#0d2c59);color:#fff;padding:40px;flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}.side h1{font-size:2rem;margin-bottom:20px}.side p{font-size:1rem;opacity:.9;margin-bottom:30px}.benefits li{margin-bottom:10px;list-style:none;position:relative;padding-left:25px}.benefits li::before{content:"✔";position:absolute;left:0;color:var(--accent);font-weight:700}.form-area{flex:1.4;padding:40px;position:relative}.progress-bar{height:6px;background:#ddd;border-radius:6px;margin-bottom:30px;overflow:hidden}.progress{height:100%;background:var(--accent);width:33%;transition:width .4s}.step{display:none;animation:fade .4s ease}.step.active{display:block}@keyframes fade{from{opacity:0}to{opacity:1}}label{font-weight:600;font-size:.85rem;margin-bottom:5px;display:block;color:var(--primary)}.input-group{margin-bottom:18px}input,select{width:100%;padding:10px 14px;font-size:.95rem;border-radius:var(--radius);border:1.6px solid #ccc;transition:.3s;font-family:inherit}input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 6px rgba(247,126,33,.5);outline:none}.error{color:red;font-size:.8rem;margin-top:2px;display:none}.buttons{margin-top:20px;display:flex;justify-content:space-between}button{background:var(--accent);color:#fff;border:none;padding:10px 24px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-size:.95rem;transition:.3s}button:hover{background:#d96a0e;transform:translateY(-1px)}@media(max-width:800px){.container{flex-direction:column}.side{order:-1;text-align:center}}
 </style>
 </head>
 <body>
 <div class="bg-shape bg1"></div>
 <div class="bg-shape bg2"></div>
-<div class="form-wrapper" role="main" aria-label="Login form for BootLearn MBA">
-  <h1>Login to BootLearn-MBA</h1>
-  <form id="login-form" novalidate>
-    <div>
-      <label for="email">Email Address *</label>
-      <input type="email" id="email" name="email" required autocomplete="email" />
-      <div class="error-message" id="email-error" aria-live="assertive"></div>
+<div class="container">
+  <div class="side" role="complementary" aria-label="Welcome and benefits">
+    <h1>Welcome to BootLearn‑MBA</h1>
+    <p>Join thousands of MBA aspirants getting free top-quality prep resources.</p>
+    <ul class="benefits">
+      <li>Structured Learning Paths</li>
+      <li>Mock Tests & Analysis</li>
+      <li>Track Your Progress</li>
+      <li>Exclusive GD/PI Prep Material</li>
+    </ul>
+  </div>
+  <div class="form-area">
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
     </div>
-    <div>
-      <label for="password">Password *</label>
-      <input type="password" id="password" name="password" minlength="6" required autocomplete="current-password" />
-      <div class="error-message" id="password-error" aria-live="assertive"></div>
-    </div>
-    <button type="submit" aria-label="Login to BootLearn-MBA">Login</button>
-  </form>
-  <p class="footer-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
+    <form id="signupForm" name="signupForm" autocomplete="off" novalidate>
+      <!-- Step 1 -->
+      <div class="step active">
+        <div class="input-group">
+          <label>Full Name*</label>
+          <input type="text" name="name" required />
+          <div class="error">Please enter your full name</div>
+        </div>
+        <div class="input-group">
+          <label>Email*</label>
+          <input type="email" name="email" required />
+          <div class="error">Enter a valid email</div>
+        </div>
+        <div class="input-group">
+          <label>Phone (10 digits)*</label>
+          <input type="tel" name="phone" pattern="[0-9]{10}" required />
+          <div class="error">Enter a valid 10-digit phone number</div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="input-group">
+          <label>Category*</label>
+          <select name="category" required>
+            <option value="">Select</option>
+            <option>General</option>
+            <option>EWS</option>
+            <option>OBC</option>
+            <option>SC</option>
+            <option>ST</option>
+            <option>PWD</option>
+          </select>
+          <div class="error">Please select category</div>
+        </div>
+        <div class="input-group">
+          <label>Gender*</label>
+          <select name="gender" required>
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+            <option>Prefer not to say</option>
+          </select>
+          <div class="error">Please select gender</div>
+        </div>
+        <div class="input-group">
+          <label>10th %*</label>
+          <input type="text" name="tenth" required />
+          <div class="error">Enter valid number (0-100)</div>
+        </div>
+        <div class="input-group">
+          <label>12th %*</label>
+          <input type="text" name="twelfth" required />
+          <div class="error">Enter valid number (0-100)</div>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="input-group">
+          <label>Graduation Degree*</label>
+          <input type="text" name="graduation" required />
+          <div class="error">Please enter degree</div>
+        </div>
+        <div class="input-group">
+          <label>Graduation %*</label>
+          <input type="text" name="gradPercent" required />
+          <div class="error">Enter valid number (0-100)</div>
+        </div>
+        <div class="input-group">
+          <label>Work Experience (months)</label>
+          <input type="number" name="workEx" min="0" max="600" />
+        </div>
+        <div class="input-group">
+          <label>Password*</label>
+          <input type="password" name="password" minlength="6" required />
+          <div class="error">Password must be at least 6 chars</div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button type="button" id="prevBtn" style="display:none;">Back</button>
+        <button type="button" id="nextBtn">Next</button>
+      </div>
+    </form>
+  </div>
 </div>
-<!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://warrbsimkytwguktqnyo.supabase.co';
@@ -168,76 +120,97 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const form = document.getElementById('login-form');
-const emailInput = form.email;
-const passwordInput = form.password;
-const emailError = document.getElementById('email-error');
-const passwordError = document.getElementById('password-error');
-const btn = form.querySelector('button[type="submit"]');
+const steps = document.querySelectorAll(".step");
+const progress = document.getElementById("progress");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const form = document.getElementById('signupForm');
+let currentStep = 0;
 
-function showError(el, msg) {
-  el.textContent = msg;
-  el.classList.add('active');
-}
-function clearError(el) {
-  el.textContent = '';
-  el.classList.remove('active');
-}
-function setInputValid(input, valid) {
-  if (valid) {
-    input.style.borderColor = "var(--accent)";
-    input.style.boxShadow = "0 0 8px var(--accent)";
-  } else {
-    input.style.borderColor = "#d93025";
-    input.style.boxShadow = "0 0 8px #d93025";
-  }
+function showStep(n) {
+  steps.forEach((step, idx) => step.classList.toggle("active", idx === n));
+  prevBtn.style.display = n === 0 ? "none" : "inline-block";
+  nextBtn.textContent = n === steps.length - 1 ? "Sign Up" : "Next";
+  progress.style.width = ((n + 1) / steps.length) * 100 + "%";
 }
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  clearError(emailError);
-  clearError(passwordError);
-  setInputValid(emailInput, true);
-  setInputValid(passwordInput, true);
-
+function validateStep(n) {
   let valid = true;
-  const emailVal = emailInput.value.trim();
-  const passVal = passwordInput.value;
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!emailVal || !emailPattern.test(emailVal)) {
-    showError(emailError, 'Please enter a valid email address.');
-    setInputValid(emailInput, false);
-    emailInput.focus();
-    valid = false;
-  }
-  if (!passVal || passVal.length < 6) {
-    showError(passwordError, 'Password must be at least 6 characters.');
-    setInputValid(passwordInput, false);
-    if (valid) passwordInput.focus();
-    valid = false;
-  }
-  if (!valid) return;
-
-  btn.disabled = true;
-  btn.textContent = 'Logging in...';
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: emailVal,
-    password: passVal,
+  const inputs = steps[n].querySelectorAll("input, select");
+  inputs.forEach(inp => {
+    const errorEl = inp.nextElementSibling;
+    if (!inp.checkValidity()) {
+      errorEl.style.display = "block";
+      valid = false;
+    } else {
+      errorEl.style.display = "none";
+    }
   });
+  return valid;
+}
 
-  if (error) {
-    showError(passwordError, error.message);
+nextBtn.addEventListener("click", async () => {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    showStep(currentStep);
   } else {
-    alert('Login successful! Welcome ' + (data.user?.email || ''));
-    form.reset();
-    // Redirect to your dashboard if needed
-    // window.location.href = 'dashboard.html';
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Signing up...";
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      password: form.password.value,
+      phone: form.phone.value.trim(),
+      category: form.category.value,
+      gender: form.gender.value,
+      tenth: form.tenth.value.trim(),
+      twelfth: form.twelfth.value.trim(),
+      graduation: form.graduation.value.trim(),
+      gradPercent: form.gradPercent.value.trim(),
+      workEx: form.workEx.value.trim()
+    };
+    try {
+      const { data: userData, error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            name: data.name,
+            phone: data.phone,
+            category: data.category,
+            gender: data.gender,
+            tenth: data.tenth,
+            twelfth: data.twelfth,
+            graduation: data.graduation,
+            gradPercent: data.gradPercent,
+            workEx: data.workEx
+          }
+        }
+      });
+      if (error) {
+        alert("Signup error: " + error.message);
+      } else {
+        alert("Signup successful! Please check your email to confirm your account.");
+        form.reset();
+        currentStep = 0;
+        showStep(currentStep);
+        window.location.href = "login.html";
+      }
+    } catch (err) {
+      alert("Unexpected error: " + err.message);
+    } finally {
+      nextBtn.textContent = "Sign Up";
+      nextBtn.disabled = false;
+    }
   }
+});
 
-  btn.disabled = false;
-  btn.textContent = 'Login';
+prevBtn.addEventListener("click", () => {
+  if (currentStep > 0) {
+    currentStep--;
+    showStep(currentStep);
+  }
 });
 </script>
 </body>
