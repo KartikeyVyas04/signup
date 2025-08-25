@@ -6,138 +6,8 @@
 <title>BootLearn-MBA | Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 <style>
-:root {
-  --primary: #1a3c72;
-  --accent: #f77e21;
-  --bg: #f5f8fc;
-  --text: #222;
-  --muted: #6b7280;
-  --radius: 12px;
-  --shadow: 0 8px 25px rgba(26,60,114,0.15);
-  --transition: 0.3s ease;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-  position: relative;
-}
-.bg-shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.2;
-  animation: float 12s infinite ease-in-out alternate;
-  z-index: 0;
-}
-.bg1 { width: 300px; height: 300px; background: var(--accent); top: -80px; left: -80px; }
-.bg2 { width: 260px; height: 260px; background: var(--primary); bottom: -80px; right: -80px; }
-@keyframes float { to { transform: translate(20px, -40px);} }
-.form-wrapper {
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 48px 36px;
-  width: 100%;
-  max-width: 420px;
-  z-index: 1;
-  animation: fadeSlideIn 0.6s ease forwards;
-}
-@keyframes fadeSlideIn { from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);} }
-.form-wrapper h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary);
-  text-align: center;
-  margin-bottom: 32px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--primary);
-  margin-bottom: 6px;
-  display: inline-block;
-}
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 1rem;
-  border-radius: var(--radius);
-  border: 2px solid #ccc;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  font-family: inherit;
-}
-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  outline: none;
-}
-.error-message {
-  color: #d93025;
-  font-size: 0.8rem;
-  opacity: 0;
-  max-height: 0;
-  transition: 0.3s ease;
-}
-.error-message.active {
-  opacity: 1;
-  max-height: 40px;
-}
-button[type="submit"] {
-  background: var(--accent);
-  color: white;
-  font-weight: 700;
-  border: none;
-  padding: 16px 0;
-  font-size: 1.1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(247,126,33,0.5);
-  transition: background var(--transition), transform var(--transition);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-button:hover { background: #d96a0e; transform: translateY(-2px);}
-button::after {
-  content: '';
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 0; height: 0;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  transition: width 0.4s ease, height 0.4s ease;
-}
-button:active::after {
-  width: 200%; height: 200%; transition: 0s;
-}
-.footer-text {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  text-align: center;
-  color: var(--muted);
-}
-.footer-text a {
-  color: var(--accent);
-  font-weight: 600;
-  text-decoration: none;
-}
-.footer-text a:hover { text-decoration: underline; }
+/* Same CSS styling as your previous login page */
+:root{--primary:#1a3c72;--accent:#f77e21;--bg:#f5f8fc;--text:#222;--muted:#6b7280;--radius:12px;--shadow:0 8px 25px rgba(26,60,114,0.15);--transition:.3s ease}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;position:relative}.bg-shape{position:absolute;border-radius:50%;filter:blur(80px);opacity:.2;animation:float 12s infinite ease-in-out alternate;z-index:0}.bg1{width:300px;height:300px;background:var(--accent);top:-80px;left:-80px}.bg2{width:260px;height:260px;background:var(--primary);bottom:-80px;right:-80px}@keyframes float{to{transform:translate(20px,-40px)}}.form-wrapper{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:48px 36px;width:100%;max-width:420px;z-index:1;animation:fadeSlideIn .6s ease forwards}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.form-wrapper h1{font-size:2rem;font-weight:800;color:var(--primary);text-align:center;margin-bottom:32px}form{display:flex;flex-direction:column;gap:24px}label{font-weight:600;font-size:.9rem;color:var(--primary);margin-bottom:6px;display:inline-block}input[type=email],input[type=password]{width:100%;padding:14px 16px;font-size:1rem;border-radius:var(--radius);border:2px solid #ccc;transition:border-color var(--transition),box-shadow var(--transition);font-family:inherit}input:focus{border-color:var(--accent);box-shadow:0 0 8px var(--accent);outline:none}.error-message{color:#d93025;font-size:.8rem;opacity:0;max-height:0;transition:.3s ease}.error-message.active{opacity:1;max-height:40px}button[type=submit]{background:var(--accent);color:#fff;font-weight:700;border:none;padding:16px 0;font-size:1.1rem;border-radius:var(--radius);cursor:pointer;box-shadow:0 8px 25px rgba(247,126,33,.5);transition:background var(--transition),transform var(--transition);position:relative;overflow:hidden;user-select:none}button:hover{background:#d96a0e;transform:translateY(-2px)}button::after{content:'';position:absolute;left:50%;top:50%;width:0;height:0;background:rgba(255,255,255,.4);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:width .4s ease,height .4s ease}button:active::after{width:200%;height:200%;transition:0s}.footer-text{margin-top:20px;font-size:.9rem;text-align:center;color:var(--muted)}.footer-text a{color:var(--accent);font-weight:600;text-decoration:none}.footer-text a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -160,7 +30,6 @@ button:active::after {
   </form>
   <p class="footer-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
 </div>
-<!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://warrbsimkytwguktqnyo.supabase.co';
@@ -222,7 +91,6 @@ form.addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Logging in...';
 
-  // Supabase login
   const { data, error } = await supabase.auth.signInWithPassword({
     email: emailVal,
     password: passVal,
@@ -233,7 +101,7 @@ form.addEventListener('submit', async (e) => {
   } else {
     alert('Login successful! Welcome ' + (data.user?.email || ''));
     form.reset();
-    // Optionally redirect to dashboard
+    // Uncomment to redirect logged-in user:
     // window.location.href = 'dashboard.html';
   }
 
