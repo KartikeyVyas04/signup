@@ -6,7 +6,7 @@
 <title>BootLearn-MBA | Sign Up</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 <style>
-  /* Use your original CSS styles here */
+  /* Your original CSS, unchanged */
   :root {
     --primary: #1a3c72;
     --accent: #f77e21;
@@ -189,7 +189,6 @@
 </style>
 </head>
 <body>
-
 <div class="bg-shape bg1"></div>
 <div class="bg-shape bg2"></div>
 <div class="container">
@@ -210,7 +209,6 @@
       <div class="progress" id="progress"></div>
     </div>
     <form id="signupForm" name="signupForm" autocomplete="off" novalidate>
-      <!-- Step 1 -->
       <div class="step active">
         <div class="input-group">
           <label>Full Name*</label>
@@ -229,7 +227,6 @@
         </div>
       </div>
 
-      <!-- Step 2 -->
       <div class="step">
         <div class="input-group">
           <label>Category*</label>
@@ -267,7 +264,6 @@
         </div>
       </div>
 
-      <!-- Step 3 -->
       <div class="step">
         <div class="input-group">
           <label>Graduation Degree*</label>
@@ -298,6 +294,7 @@
   </div>
 </div>
 
+<!-- Add Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://warrbsimkytwguktqnyo.supabase.co';
@@ -336,12 +333,14 @@ function validateStep(n) {
 
 nextBtn.addEventListener("click", async () => {
   if (!validateStep(currentStep)) return;
+
   if (currentStep < steps.length - 1) {
     currentStep++;
     showStep(currentStep);
   } else {
     nextBtn.disabled = true;
     nextBtn.textContent = "Signing up...";
+
     const data = {
       name: form.name.value.trim(),
       email: form.email.value.trim(),
@@ -355,6 +354,7 @@ nextBtn.addEventListener("click", async () => {
       gradPercent: form.gradPercent.value.trim(),
       workEx: form.workEx.value.trim()
     };
+
     try {
       const { data: userData, error } = await supabase.auth.signUp({
         email: data.email,
@@ -373,6 +373,7 @@ nextBtn.addEventListener("click", async () => {
           }
         }
       });
+
       if (error) {
         alert("Signup error: " + error.message);
       } else {
