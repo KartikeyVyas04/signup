@@ -29,7 +29,6 @@ body {
   overflow: hidden;
   position: relative;
 }
-/* Background blobs */
 .bg-shape {
   position: absolute;
   border-radius: 50%;
@@ -41,7 +40,6 @@ body {
 .bg1 { width: 300px; height: 300px; background: var(--accent); top: -80px; left: -80px; }
 .bg2 { width: 260px; height: 260px; background: var(--primary); bottom: -80px; right: -80px; }
 @keyframes float { to { transform: translate(20px, -40px);} }
-/* Form container */
 .form-wrapper {
   background: white;
   border-radius: var(--radius);
@@ -162,89 +160,86 @@ button:active::after {
   </form>
   <p class="footer-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
 </div>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://warrbsimkytwguktqnyo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhcnJic2lta3l0d2d1a3RxbnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5MzIzMTQsImV4cCI6MjA3MTUwODMxNH0._9zpeZRiyysLR2Ga30aGAlt0_Z0z8v7cmkrhUBRLLcQ';
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDFNKnIvOv94FLZ2rVz1sqML-2yedhf0xc",
-    authDomain: "bootlearn-mba.firebaseapp.com",
-    projectId: "bootlearn-mba",
-    storageBucket: "bootlearn-mba.firebasestorage.app",
-    messagingSenderId: "903266342829",
-    appId: "1:903266342829:web:44fe7e1df618b5a5bb3324",
-    measurementId: "G-H7XQ38YD61"
-  };
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const form = document.getElementById('login-form');
-  const emailInput = form.email;
-  const passwordInput = form.password;
-  const emailError = document.getElementById('email-error');
-  const passwordError = document.getElementById('password-error');
-  const btn = form.querySelector('button[type="submit"]');
+const form = document.getElementById('login-form');
+const emailInput = form.email;
+const passwordInput = form.password;
+const emailError = document.getElementById('email-error');
+const passwordError = document.getElementById('password-error');
+const btn = form.querySelector('button[type="submit"]');
 
-  function showError(el, msg) {
-    el.textContent = msg;
-    el.classList.add('active');
+function showError(el, msg) {
+  el.textContent = msg;
+  el.classList.add('active');
+}
+function clearError(el) {
+  el.textContent = '';
+  el.classList.remove('active');
+}
+function setInputValid(input, valid) {
+  if (valid) {
+    input.style.borderColor = "var(--accent)";
+    input.style.boxShadow = "0 0 8px var(--accent)";
+  } else {
+    input.style.borderColor = "#d93025";
+    input.style.boxShadow = "0 0 8px #d93025";
   }
-  function clearError(el) {
-    el.textContent = '';
-    el.classList.remove('active');
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearError(emailError);
+  clearError(passwordError);
+  setInputValid(emailInput, true);
+  setInputValid(passwordInput, true);
+
+  let valid = true;
+  const emailVal = emailInput.value.trim();
+  const passVal = passwordInput.value;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailVal || !emailPattern.test(emailVal)) {
+    showError(emailError, 'Please enter a valid email address.');
+    setInputValid(emailInput, false);
+    emailInput.focus();
+    valid = false;
   }
-  function setInputValid(input, valid) {
-    if (valid) {
-      input.style.borderColor = "var(--accent)";
-      input.style.boxShadow = "0 0 8px var(--accent)";
-    } else {
-      input.style.borderColor = "#d93025";
-      input.style.boxShadow = "0 0 8px #d93025";
-    }
+  if (!passVal || passVal.length < 6) {
+    showError(passwordError, 'Password must be at least 6 characters.');
+    setInputValid(passwordInput, false);
+    if (valid) passwordInput.focus();
+    valid = false;
   }
+  if (!valid) return;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearError(emailError);
-    clearError(passwordError);
-    setInputValid(emailInput, true);
-    setInputValid(passwordInput, true);
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
 
-    let valid = true;
-    const emailVal = emailInput.value.trim();
-    const passVal = passwordInput.value;
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailVal || !emailPattern.test(emailVal)) {
-      showError(emailError, 'Please enter a valid email address.');
-      setInputValid(emailInput, false);
-      emailInput.focus();
-      valid = false;
-    }
-    if (!passVal || passVal.length < 6) {
-      showError(passwordError, 'Password must be at least 6 characters.');
-      setInputValid(passwordInput, false);
-      if (valid) passwordInput.focus();
-      valid = false;
-    }
-    if (!valid) return;
-
-    btn.disabled = true;
-    btn.textContent = 'Logging in...';
-
-    try {
-      await signInWithEmailAndPassword(auth, emailVal, passVal);
-      alert('Login successful!');
-      form.reset();
-      // Redirect to your app/dashboard page if needed:
-      // window.location.href = 'dashboard.html';
-    } catch (error) {
-      showError(passwordError, error.message);
-    }
-    btn.disabled = false;
-    btn.textContent = 'Login';
+  // Supabase login
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: emailVal,
+    password: passVal,
   });
+
+  if (error) {
+    showError(passwordError, error.message);
+  } else {
+    alert('Login successful! Welcome ' + (data.user?.email || ''));
+    form.reset();
+    // Optionally redirect to dashboard
+    // window.location.href = 'dashboard.html';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Login';
+});
 </script>
 </body>
 </html>
