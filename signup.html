@@ -123,12 +123,8 @@ body {
   display: block;
 }
 @keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 label {
   font-weight: 600;
@@ -183,13 +179,8 @@ button:hover {
   transform: translateY(-1px);
 }
 @media (max-width: 800px) {
-  .container {
-    flex-direction: column;
-  }
-  .side {
-    order: -1;
-    text-align: center;
-  }
+  .container { flex-direction: column; }
+  .side { order: -1; text-align: center; }
 }
 </style>
 </head>
@@ -293,84 +284,73 @@ button:hover {
       </form>
     </div>
   </div>
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+const SUPABASE_URL = 'https://warrbsimkytwguktqnyo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhcnJic2lta3l0d2d1a3RxbnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5MzIzMTQsImV4cCI6MjA3MTUwODMxNH0._9zpeZRiyysLR2Ga30aGAlt0_Z0z8v7cmkrhUBRLLcQ';
 
-  <!-- Firebase Modular SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDFNKnIvOv94FLZ2rVz1sqML-2yedhf0xc",
-      authDomain: "bootlearn-mba.firebaseapp.com",
-      projectId: "bootlearn-mba",
-      storageBucket: "bootlearn-mba.firebasestorage.app",
-      messagingSenderId: "903266342829",
-      appId: "1:903266342829:web:44fe7e1df618b5a5bb3324",
-      measurementId: "G-H7XQ38YD61"
+const steps = document.querySelectorAll(".step");
+const progress = document.getElementById("progress");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const form = document.getElementById('signupForm');
+let currentStep = 0;
+
+function showStep(n) {
+  steps.forEach((step, idx) => step.classList.toggle("active", idx === n));
+  prevBtn.style.display = n === 0 ? "none" : "inline-block";
+  nextBtn.textContent = n === steps.length - 1 ? "Sign Up" : "Next";
+  progress.style.width = ((n + 1) / steps.length) * 100 + "%";
+}
+
+function validateStep(n) {
+  let valid = true;
+  const inputs = steps[n].querySelectorAll("input, select");
+  inputs.forEach(inp => {
+    const errorEl = inp.nextElementSibling;
+    if (!inp.checkValidity()) {
+      errorEl.style.display = "block";
+      valid = false;
+    } else {
+      errorEl.style.display = "none";
+    }
+  });
+  return valid;
+}
+
+nextBtn.addEventListener("click", async () => {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    showStep(currentStep);
+  } else {
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Signing up...";
+
+    const data = {
+      name: form.name.value,
+      email: form.email.value.trim(),
+      password: form.password.value,
+      phone: form.phone.value,
+      category: form.category.value,
+      gender: form.gender.value,
+      tenth: form.tenth.value,
+      twelfth: form.twelfth.value,
+      graduation: form.graduation.value,
+      gradPercent: form.gradPercent.value,
+      workEx: form.workEx.value
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const steps = document.querySelectorAll(".step");
-    const progress = document.getElementById("progress");
-    const nextBtn = document.getElementById("nextBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const form = document.getElementById('signupForm');
-    let currentStep = 0;
-
-    function showStep(n) {
-      steps.forEach((step, idx) => step.classList.toggle("active", idx === n));
-      prevBtn.style.display = n === 0 ? "none" : "inline-block";
-      nextBtn.textContent = n === steps.length - 1 ? "Sign Up" : "Next";
-      progress.style.width = ((n + 1) / steps.length) * 100 + "%";
-    }
-
-    function validateStep(n) {
-      let valid = true;
-      const inputs = steps[n].querySelectorAll("input, select");
-      inputs.forEach(inp => {
-        const errorEl = inp.nextElementSibling;
-        if (!inp.checkValidity()) {
-          errorEl.style.display = "block";
-          valid = false;
-        } else {
-          errorEl.style.display = "none";
-        }
-      });
-      return valid;
-    }
-
-    nextBtn.addEventListener("click", async () => {
-      if (!validateStep(currentStep)) return;
-      if (currentStep < steps.length - 1) {
-        currentStep++;
-        showStep(currentStep);
-      } else {
-        nextBtn.disabled = true;
-        nextBtn.textContent = "Signing up...";
-        try {
-          const data = {
-            name: form.name.value,
-            email: form.email.value.trim(),
-            password: form.password.value,
-            phone: form.phone.value,
-            category: form.category.value,
-            gender: form.gender.value,
-            tenth: form.tenth.value,
-            twelfth: form.twelfth.value,
-            graduation: form.graduation.value,
-            gradPercent: form.gradPercent.value,
-            workEx: form.workEx.value
-          };
-
-          const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-          const uid = userCredential.user.uid;
-          await setDoc(doc(db, "users", uid), {
+    try {
+      const { data: userData, error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
             name: data.name,
-            email: data.email,
             phone: data.phone,
             category: data.category,
             gender: data.gender,
@@ -378,30 +358,35 @@ button:hover {
             twelfth: data.twelfth,
             graduation: data.graduation,
             gradPercent: data.gradPercent,
-            workEx: data.workEx,
-            createdAt: serverTimestamp()
-          });
-
-          alert("Signup successful! Redirecting to login.");
-          form.reset();
-          currentStep = 0;
-          showStep(currentStep);
-          window.location.href = "index.html"; // Adjust login page URL if needed
-        } catch (error) {
-          alert("Signup error: " + error.message);
+            workEx: data.workEx
+          }
         }
-        nextBtn.textContent = "Sign Up";
-        nextBtn.disabled = false;
+      });
+
+      if (error) {
+        alert("Signup error: " + error.message);
+      } else {
+        alert("Signup successful! Please check your email to confirm your account.");
+        form.reset();
+        currentStep = 0;
+        showStep(currentStep);
+        window.location.href = "login.html";
       }
-    });
+    } catch (err) {
+      alert("Unexpected error: " + err.message);
+    } finally {
+      nextBtn.textContent = "Sign Up";
+      nextBtn.disabled = false;
+    }
+  }
+});
 
-    prevBtn.addEventListener("click", () => {
-      currentStep--;
-      showStep(currentStep);
-    });
+prevBtn.addEventListener("click", () => {
+  currentStep--;
+  showStep(currentStep);
+});
 
-    showStep(currentStep);
-
+showStep(currentStep);
   </script>
 </body>
 </html>
